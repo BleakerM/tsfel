@@ -2,7 +2,6 @@ import warnings
 
 import scipy
 from statsmodels.tsa.stattools import acf
-import numpy as np
 
 from tsfel.constants import FEATURES_MIN_SIZE
 from tsfel.feature_extraction.features_utils import *
