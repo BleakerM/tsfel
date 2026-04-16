@@ -631,7 +631,7 @@ def find_plateau(y, threshold=0.1, consecutive_points=5):
     # No plateau found
     return len(y)
 
-def round_distinct(s: np.ndarray) -> int:
+def round_distinct(s: np.ndarray) -> np.ndarray:
     low_ind=s[1].astype(str).replace("0","e").replace(".","e").count("e")+1
     if low_ind <=310:
         ValueError(f"Frequency {s[1]} Hz too small for floating-point variables.")
