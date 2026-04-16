@@ -2,6 +2,7 @@ import warnings
 
 import scipy
 from statsmodels.tsa.stattools import acf
+import numpy as np
 
 from tsfel.constants import FEATURES_MIN_SIZE
 from tsfel.feature_extraction.features_utils import *
@@ -1549,7 +1550,8 @@ def spectrogram_mean_coeff(signal, fs, bins=32):
 
     frequencies, _, Sxx = scipy.signal.spectrogram(signal, fs, nperseg=bins * 2 - 2)
     Sxx_mean = Sxx.mean(1)
-    f_keys = np.round(frequencies, 2).astype(str)
+    f_keys=round_distinct(frequencies)
+    # f_keys = np.round(frequencies, 2).astype(str)
 
     return {"names": [f + "Hz" for f in f_keys], "values": Sxx_mean}
 
@@ -1695,7 +1697,8 @@ def wavelet_abs_mean(signal, fs, wavelet="mexh", max_width=10):
     widths = np.arange(1, max_width)
 
     coeffs, frequencies = continuous_wavelet_transform(signal=signal, fs=fs, wavelet=wavelet, widths=widths)
-    f_keys = np.round(frequencies, 2).astype(str)
+    f_keys=round_distinct(frequencies)
+    # f_keys = np.round(frequencies, 2).astype(str)
 
     return {"names": [f + "Hz" for f in f_keys], "values": np.abs(np.mean(coeffs, axis=1))}
 
@@ -1725,7 +1728,8 @@ def wavelet_std(signal, fs, wavelet="mexh", max_width=10):
     widths = np.arange(1, max_width)
 
     coeffs, frequencies = continuous_wavelet_transform(signal=signal, fs=fs, wavelet=wavelet, widths=widths)
-    f_keys = np.round(frequencies, 2).astype(str)
+    f_keys=round_distinct(frequencies)
+    # f_keys = np.round(frequencies, 2).astype(str)
 
     return {"names": [f + "Hz" for f in f_keys], "values": np.std(coeffs, axis=1)}
 
@@ -1755,7 +1759,8 @@ def wavelet_var(signal, fs, wavelet="mexh", max_width=10):
     widths = np.arange(1, max_width)
 
     coeffs, frequencies = continuous_wavelet_transform(signal=signal, fs=fs, wavelet=wavelet, widths=widths)
-    f_keys = np.round(frequencies, 2).astype(str)
+    f_keys=round_distinct(frequencies)
+    # f_keys = np.round(frequencies, 2).astype(str)
 
     return {"names": [f + "Hz" for f in f_keys], "values": np.var(coeffs, axis=1)}
 
@@ -1788,7 +1793,8 @@ def wavelet_energy(signal, fs, wavelet="mexh", max_width=10):
     widths = np.arange(1, max_width)
 
     coeffs, frequencies = continuous_wavelet_transform(signal=signal, fs=fs, wavelet=wavelet, widths=widths)
-    f_keys = np.round(frequencies, 2).astype(str)
+    f_keys=round_distinct(frequencies)
+    # f_keys = np.round(frequencies, 2).astype(str)
 
     return {"names": [f + "Hz" for f in f_keys], "values": np.sqrt(np.sum(coeffs**2, axis=1) / np.shape(coeffs)[1])}
 
